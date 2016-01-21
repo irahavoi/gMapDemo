@@ -10,7 +10,7 @@ public class Constants {
     public static final LatLng VITEBSK = new LatLng(55.181455, 30.174098);
     public static final LatLng WINNIPEG = new LatLng(49.882063, -97.146738);
 
-    public static final float ZOOM = 10;
+    public static final float ZOOM = 4;
     public static final float BEARING_NORTH = 0;
     public static final float BEARING_EAST = 90;
     public static final float BEARING_SOUTH = 180;

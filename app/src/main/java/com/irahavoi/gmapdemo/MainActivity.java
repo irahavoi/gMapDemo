@@ -11,8 +11,10 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import static com.irahavoi.gmapdemo.Constants.ANIMATION_SLOW;
 import static com.irahavoi.gmapdemo.Constants.BEARING_EAST;
@@ -26,6 +28,9 @@ import static com.irahavoi.gmapdemo.Constants.ZOOM;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback{
     private GoogleMap m_map;
+    private MarkerOptions winni;
+    private MarkerOptions nyc;
+    private MarkerOptions vitebsk;
     boolean mapReady = false;
 
     @Override
@@ -87,6 +92,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
+        winni = new MarkerOptions().position(WINNIPEG).title("Home, sweet home").icon(BitmapDescriptorFactory.fromResource(R.drawable.home));
+        vitebsk = new MarkerOptions().position(VITEBSK).title("The place I was born");
+        nyc = new MarkerOptions().position(NEW_YORK).title("New York, New York");
+
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(MainActivity.this);
     }
@@ -132,5 +141,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .build();
 
         m_map.animateCamera(CameraUpdateFactory.newCameraPosition(cp), animationDurationMilis, null);
+        m_map.addMarker(winni);
+        m_map.addMarker(vitebsk);
+        m_map.addMarker(nyc);
     }
 }
