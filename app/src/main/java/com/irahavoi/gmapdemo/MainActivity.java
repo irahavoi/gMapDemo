@@ -1,5 +1,7 @@
 package com.irahavoi.gmapdemo;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -13,6 +15,7 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -95,6 +98,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
+        Button grandCanyonBtn = (Button) findViewById(R.id.grandCanyonBtn);
+        grandCanyonBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, StreetViewPanoramaActivity.class));
+            }
+        });
+
         winni = new MarkerOptions().position(WINNIPEG).title("Home, sweet home").icon(BitmapDescriptorFactory.fromResource(R.drawable.home));
         vitebsk = new MarkerOptions().position(VITEBSK).title("The place I was born").icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher));
         nyc = new MarkerOptions().position(NEW_YORK).title("New York, New York").icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher));
@@ -149,10 +160,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         m_map.addMarker(nyc);
 
         m_map.addPolyline(new PolylineOptions().geodesic(true)
-            .add(currentPosition)
-            .add(place));
+                .add(currentPosition)
+                .add(place));
 
         currentPosition = place;
+
+        m_map.addCircle(new CircleOptions().center(place).radius(250000).strokeColor(Color.GREEN).fillColor(Color.argb(64, 0, 255, 0)));
 
     }
 }

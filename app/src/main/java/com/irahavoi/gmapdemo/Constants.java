@@ -9,6 +9,7 @@ public class Constants {
     public static final LatLng NEW_YORK = new LatLng(40.7884, -73.9857);
     public static final LatLng VITEBSK = new LatLng(55.181455, 30.174098);
     public static final LatLng WINNIPEG = new LatLng(49.882063, -97.146738);
+    public static final LatLng GRAND_CANYON = new LatLng(36.0579667, -112.1430996);
 
     public static final float ZOOM = 4;
     public static final float BEARING_NORTH = 0;
