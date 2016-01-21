@@ -14,6 +14,16 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 
+import static com.irahavoi.gmapdemo.Constants.ANIMATION_SLOW;
+import static com.irahavoi.gmapdemo.Constants.BEARING_EAST;
+import static com.irahavoi.gmapdemo.Constants.BEARING_NORTH;
+import static com.irahavoi.gmapdemo.Constants.BEARING_WEST;
+import static com.irahavoi.gmapdemo.Constants.NEW_YORK;
+import static com.irahavoi.gmapdemo.Constants.TILT_ZERO;
+import static com.irahavoi.gmapdemo.Constants.VITEBSK;
+import static com.irahavoi.gmapdemo.Constants.WINNIPEG;
+import static com.irahavoi.gmapdemo.Constants.ZOOM;
+
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback{
     private GoogleMap m_map;
     boolean mapReady = false;
@@ -53,6 +63,30 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
+        Button btnNewYork = (Button) findViewById(R.id.btnNewYork);
+        btnNewYork.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                moveCameraTo(NEW_YORK, ZOOM, BEARING_WEST, TILT_ZERO, ANIMATION_SLOW);
+            }
+        });
+
+        Button btnVitebsk = (Button) findViewById(R.id.btnVitebsk);
+        btnVitebsk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                moveCameraTo(VITEBSK, ZOOM, BEARING_EAST, TILT_ZERO, ANIMATION_SLOW);
+            }
+        });
+
+        Button btnWinnipeg = (Button) findViewById(R.id.btnWinnipeg);
+        btnWinnipeg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                moveCameraTo(WINNIPEG, ZOOM, BEARING_NORTH, TILT_ZERO, ANIMATION_SLOW);
+            }
+        });
+
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(MainActivity.this);
     }
@@ -87,5 +121,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         CameraPosition target = CameraPosition.builder().target(newYork).zoom(14).build();
 
         m_map.moveCamera(CameraUpdateFactory.newCameraPosition(target));
+    }
+
+    private void moveCameraTo(LatLng place, float zoom, float bearing, float tilt, int animationDurationMilis){
+        CameraPosition cp = CameraPosition.builder()
+                .target(place)
+                .zoom(zoom)
+                .bearing(bearing)
+                .tilt(tilt)
+                .build();
+
+        m_map.animateCamera(CameraUpdateFactory.newCameraPosition(cp), animationDurationMilis, null);
     }
 }
