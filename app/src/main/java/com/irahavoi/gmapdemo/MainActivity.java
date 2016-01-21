@@ -15,6 +15,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.PolylineOptions;
 
 import static com.irahavoi.gmapdemo.Constants.ANIMATION_SLOW;
 import static com.irahavoi.gmapdemo.Constants.BEARING_EAST;
@@ -32,6 +33,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private MarkerOptions nyc;
     private MarkerOptions vitebsk;
     boolean mapReady = false;
+
+    private LatLng currentPosition = NEW_YORK;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,8 +96,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
 
         winni = new MarkerOptions().position(WINNIPEG).title("Home, sweet home").icon(BitmapDescriptorFactory.fromResource(R.drawable.home));
-        vitebsk = new MarkerOptions().position(VITEBSK).title("The place I was born");
-        nyc = new MarkerOptions().position(NEW_YORK).title("New York, New York");
+        vitebsk = new MarkerOptions().position(VITEBSK).title("The place I was born").icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher));
+        nyc = new MarkerOptions().position(NEW_YORK).title("New York, New York").icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher));
 
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(MainActivity.this);
@@ -144,5 +147,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         m_map.addMarker(winni);
         m_map.addMarker(vitebsk);
         m_map.addMarker(nyc);
+
+        m_map.addPolyline(new PolylineOptions().geodesic(true)
+            .add(currentPosition)
+            .add(place));
+
+        currentPosition = place;
+
     }
 }
